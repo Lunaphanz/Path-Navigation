@@ -31,14 +31,14 @@ void initI2C() {
 	// TODO:Clear status flags ?is it to clear STARTF and STOPF
 	I2C0->S |= I2C_S_ARBL_MASK | I2C_S_IICIF_MASK; //arbitration lost, interrupt flag
 	// Set I2C Divider Register (Choose a clock frequency less than 100 KHz)
-	I2C0->F = I2C_F_MULT(0); //mul = 1
-	I2C0->F = I2C_F_ICR(0x2B); // SCLD divider = 512 -> clock freq = 93.750KHz
+	I2C0->F |= I2C_F_MULT(0); //mul = 1
+	I2C0->F |= I2C_F_ICR(0x2B); // SCLD divider = 512 -> clock freq = 93.750KHz
 	// Set bit to enable I2C Module
 	I2C0->C1 |= I2C_C1_IICEN(1); //write 1 bit 7
 }
 void clearStatusFlags() {
 	// Clear STOPF and Undocumented STARTF bit 4 in Filter Register
-	I2C0->FLT |= I2C0_FLT_STOPF_MASK;
+	I2C0->FLT |= I2C_FLT_STOPF_MASK;
 	//I2C0->FLT |= I2C0_FLT_STOPF_
 	// Clear ARBL (bit4) and IICIF (bit1) bits in Status Register
 	I2C0->S |= I2C_S_ARBL_MASK | I2C_S_IICIF_MASK;
@@ -68,9 +68,9 @@ void RepeatStart() {
 }
 void SendStop() {
 	// Clear MST(bit5), TX(bit4) and TXAK(bit3) bits in Control 1 Register
-	I2C0->C1 |= I2C_C1_MST(0);
-	I2C0->C1 |= I2C_C1_TX(0);
-	I2C0->C1 |= I2C_C1_TXAK(0);
+	I2C0->C1 &= ~I2C_C1_MST(1);
+	I2C0->C1 &= ~I2C_C1_TX(0);
+	I2C0->C1 &= ~I2C_C1_TXAK(0);
 	// Wait for BUSY bit to go low in Status Register
 	while(I2C0->S & I2C_S_BUSY_(1)){}
 }
@@ -171,6 +171,6 @@ void Read_Block(uint8_t Register_Address, uint8_t *Destination_Data_Byte_Array, 
 			SendStop();
 		}
 		// Read Byte from Data Register into Array
-		Destination_Data_Byte_Array[index] = I2C0->D
+		Destination_Data_Byte_Array[index] = I2C0->D;
 	}
 }
