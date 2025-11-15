@@ -7,9 +7,13 @@
 #include "MKL46Z4.h"
 
 void initI2C() {
-	SIM->SCGC4 |= SIM_SCGC4_I2C0(1); // Enable Clock Gating for I2C module and Port
+	// Enable Clock Gating for I2C module and Port
+	SIM->SCGC4 |= SIM_SCGC4_I2C0(1);
 	// Setup Pin Mode for I2C
+	PORTC->PCR[8] |= PORT_PCR_MUX(2); //I2C SCL MUX ALT2
+	PORTC->PCR[9] |= PORT_PCR_MUX(2); //I2C SDA MUX ALT2
 	// Write 0 to all I2C registers
+
 	// Write 0x50 to FLT register (clears all bits)
 	// Clear status flags
 	// Set I2C Divider Register (Choose a clock frequency less than 100 KHz)
