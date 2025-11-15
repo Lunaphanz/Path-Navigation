@@ -12,12 +12,28 @@ void initI2C() {
 	// Setup Pin Mode for I2C
 	PORTC->PCR[8] |= PORT_PCR_MUX(2); //I2C SCL MUX ALT2
 	PORTC->PCR[9] |= PORT_PCR_MUX(2); //I2C SDA MUX ALT2
-	// Write 0 to all I2C registers
-
+	I2C0->S = 0x00; // Write 0 to all I2C registers
+	I2C0->A1 = 0x00; //Address Register 1
+	I2C0->F = 0x00; //Frequency Divider register
+	I2C0->C1 = 0x00; // Control Register 1
+	I2C0->S |= I2C_S_ARBL_MASK | I2C_S_IICIF_MASK; //Status register
+	I2C0->D = 0x00; // Data I/O register
+	I2C0->C2 = 0x00; // Control Register 2
+	I2C0->FLT = 0x00; // Programmable INput Glitch Filter register
+	I2C0->RA = 0x00; // Range Address register
+	I2C0->SMB = 0x00; // SMBus Control and Status register
+	I2C0->A2 = 0x00; // Address Register 2
+	I2C0->SLTH = 0x00; // SCL Low Timeout Register High
+	I2C0->SLTL = 0x00; // SCL Low Timeout Register Low
 	// Write 0x50 to FLT register (clears all bits)
-	// Clear status flags
+	I2C0->FLT = 0x50; // Write bit 4,6 STOPF FLT
+	// TODO:Clear status flags ?is it to clear STARTF and STOPF
+	I2C0->S |= I2C_S_ARBL_MASK | I2C_S_IICIF_MASK;
 	// Set I2C Divider Register (Choose a clock frequency less than 100 KHz)
+	I2C0->F = I2C_F_MULT(0); //mul = 1
+	I2C0->F = I2C_F_ICR(0x2B); // SCLD divider = 512 -> clock freq = 93.750KHz
 	// Set bit to enable I2C Module
+	I2C0->C1 |= I2C_C1_IICEN(1); //write 1 bit 7
 }
 void clearStatusFlags() {
 	// Clear STOPF and Undocumented STARTF bit 4 in Filter Register
