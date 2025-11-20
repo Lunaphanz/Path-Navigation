@@ -36,7 +36,7 @@ void color_sensor_init(){
 }
 void color_sensor_read(){
 	Read_Block(0xB4, raw_color, 8); //read from 0x14 - 0x1B 0x80 | 0x14
-	print_raw_color();
+	//print_raw_color();
 }
 color_type get_color(){
 	//extract color from raw_color
@@ -45,16 +45,23 @@ color_type get_color(){
 	uint16_t green = (raw_color[5] << 8) | (raw_color[4]);
 	uint16_t blue  = (raw_color[7] << 8) | (raw_color[6]);
 	//adding 10 to create a confidence gap
-	if ((red > green)+10 && (red > blue+10)){
-		return RED;
+	if (clear < 60){ //Red, Blue, Black
+		if (red > blue && red > green){
+			return RED;
+		} else if (blue > red && blue > green){
+			return BLUE;
+		} else {
+			return UNKNOWN;
+		}
+	} else {  //Green, Yellow, White
+		if (green > red && green > blue){
+			return GREEN;
+		} else if (red > blue && red > green){
+			return YELLOW;
+		} else {
+			return UNKNOWN;
+		}
 	}
-	if ((green > red+10) && (green > blue+10)){
-		return GREEN;
-	}
-	if ((blue > red+10) && (blue > green+10)){
-		return BLUE;
-	}
-	return UNKNOWN;
 }
 void print_raw_color()
 {

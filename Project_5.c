@@ -59,7 +59,7 @@ int main(void) {
 
     PRINTF("START\n");
     while(1){
-    	//color_sensor_read();
+    	color_sensor_read();
     	dummy();
     }
     return 0 ;

@@ -52,6 +52,7 @@ void TCFWait() {
 void IICIFWait() {
 	// Wait for IICIF bit to Set in Status Register
 	while(!(I2C0->S & 0x02)){}
+	//FIXME: keep getting stuck on here once in a while
 }
 void SendStart() {
 	// Set MST(bit5) and TX(bit4) bits in Control 1 Register
