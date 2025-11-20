@@ -14,6 +14,7 @@
 #include "wheel.h"
 #include "line_sensor.h"
 #include "color_sensor.h"
+//#include <TCS34725_I2C.h>
 /* TODO: insert other definitions and declarations here. */
 
 /*
@@ -29,17 +30,14 @@ int main(void) {
     BOARD_InitDebugConsole();
 #endif
 
-    setup_SIM_SCGC5();
-    setup_SIM_SCGC6();
-    setup_SOPT2();
-    //setup_color_sensor();
+    setup_wheel();
+    setup_color_sensor();
+    PRINTF("complete color sensor\n");
     setup_line_sensor();
 
     PRINTF("START\n");
     while(1){
-
-    	int left_line = calibrate_right();
-    	PRINTF("%d\n", left_line);
+    	color_sensor_read();
     }
     return 0 ;
 }

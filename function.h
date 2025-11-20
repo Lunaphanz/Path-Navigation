@@ -16,24 +16,9 @@
 #include "fsl_debug_console.h"
 
 //Configuration
-void setup_SIM_SCGC5();
-void setup_SIM_SCGC6();
-void setup_SOPT2();
 void setup_PIT();
 void PIT_IRQHandler();
 void setup_TPM0(); //for delay
-
-//wheel logic
-void setup_Wheel();
-void setup_TPM2();
-void setup_PortB();
-void setup_PortC();
-
-//linesensor logic
-void setup_line_sensor();
-void setup_ADC0();
-void setup_PTE16();
-void setup_PTE17();
 
 //colorsensor logic
 void setup_color_sensor();
@@ -46,6 +31,11 @@ void LED_on();
 void LED_off();
 
 //switch logic
+void setup_Switch();
 bool SW1_press();
 bool SW2_press();
+
+//delay
+void delay_ms(int ms);
+
 #endif /* FUNCTION_H_ */
