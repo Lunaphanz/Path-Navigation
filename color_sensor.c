@@ -38,6 +38,24 @@ void color_sensor_read(){
 	Read_Block(0xB4, raw_color, 8); //read from 0x14 - 0x1B 0x80 | 0x14
 	print_raw_color();
 }
+color_type get_color(){
+	//extract color from raw_color
+	uint16_t clear = (raw_color[1] << 8) | (raw_color[0]);
+	uint16_t red   = (raw_color[3] << 8) | (raw_color[2]);
+	uint16_t green = (raw_color[5] << 8) | (raw_color[4]);
+	uint16_t blue  = (raw_color[7] << 8) | (raw_color[6]);
+	//adding 10 to create a confidence gap
+	if ((red > green)+10 && (red > blue+10)){
+		return RED;
+	}
+	if ((green > red+10) && (green > blue+10)){
+		return GREEN;
+	}
+	if ((blue > red+10) && (blue > green+10)){
+		return BLUE;
+	}
+	return UNKNOWN;
+}
 void print_raw_color()
 {
     for (int i = 0; i < 8; i++) {

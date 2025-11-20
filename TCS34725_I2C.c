@@ -36,7 +36,7 @@ void initI2C() {
 	I2C0->F |= I2C_F_ICR(0x2B); // SCLD divider = 512 -> clock freq = 93.750KHz
 	// Set bit to enable I2C Module
 	I2C0->C1 |= I2C_C1_IICEN(1); //write 1 bit 7
-	PRINTF("INIT I2C");
+	PRINTF("INIT I2C\n");
 }
 void clearStatusFlags() {
 	// Clear STOPF and Undocumented STARTF bit 4 in Filter Register

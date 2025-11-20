@@ -20,6 +20,28 @@
 /*
  * @brief   Application entry point.
  */
+void dummy(){
+	color_type color = get_color();
+	switch (color){
+		case RED:
+			PRINTF("RED\n");
+			break;
+		case BLUE:
+			PRINTF("BLUE\n");
+			break;
+		case GREEN:
+			PRINTF("GREEN\n");
+			break;
+		case YELLOW:
+			PRINTF("YELLOW\n");
+			break;
+		case UNKNOWN:
+			PRINTF("UNKNOWN\n");
+			break;
+		default:
+			PRINTF("Error\n");
+	}
+}
 int main(void) {
     /* Init board hardware. */
     BOARD_InitBootPins();
@@ -32,12 +54,13 @@ int main(void) {
 
     setup_wheel();
     setup_color_sensor();
-    PRINTF("complete color sensor\n");
+    //PRINTF("complete color sensor\n");
     setup_line_sensor();
 
     PRINTF("START\n");
     while(1){
-    	color_sensor_read();
+    	//color_sensor_read();
+    	dummy();
     }
     return 0 ;
 }

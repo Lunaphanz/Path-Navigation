@@ -14,8 +14,6 @@ typedef enum {
     BLUE,
     GREEN,
     YELLOW,
-    WHITE,
-    BLACK
 } color_type;
 extern uint8_t raw_color[8];
 extern color_type actual_color;
@@ -39,7 +37,7 @@ void color_sensor_read();
 //read into buffer
 //assign read color accordingly
 //readblock
-color_type color_sensor_get_color();
+color_type get_color();
 //return read color
 void color_sensor_read();
 void print_raw_color();
