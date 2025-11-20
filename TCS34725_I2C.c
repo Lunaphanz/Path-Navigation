@@ -10,9 +10,10 @@
 void initI2C() {
 	// Enable Clock Gating for I2C module and Port
 	SIM->SCGC4 |= SIM_SCGC4_I2C0(1);
-	// Setup Pin Mode for I2C
-	PORTC->PCR[8] |= PORT_PCR_MUX(2); //I2C SCL MUX ALT2
-	PORTC->PCR[9] |= PORT_PCR_MUX(2); //I2C SDA MUX ALT2
+	PORTC->PCR[9] &= ~(0x700);
+	PORTC->PCR[9] |= PORT_PCR_MUX(2); //MUX bit 8-10 ALT2
+	PORTC->PCR[8] &= ~(0x700);
+	PORTC->PCR[8] |= PORT_PCR_MUX(2); //MUX bit 8-10 ALT2
 	I2C0->S = 0x00; // Write 0 to all I2C registers
 	I2C0->A1 = 0x00; //Address Register 1
 	I2C0->F = 0x00; //Frequency Divider register
