@@ -15,7 +15,7 @@
 #ifndef LINE_SENSOR_H_
 #define LINE_SENSOR_H_
 //TODO: Macro define
-#define THRESHOLD 140 //black ~150 -> >140 !black
+#define THRESHOLD 240 //black ~150 -> >140 !black
 //TODO: variable
 extern bool left_line;
 extern bool right_line;
@@ -27,6 +27,7 @@ void setup_PTE17();
 //TODO: Function
 int calibrate_left();
 int calibrate_right();
+
 
 
 #endif /* LINE_SENSOR_H_ */
