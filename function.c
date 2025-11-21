@@ -14,7 +14,9 @@
 #include "fsl_debug_console.h"
 
 #include "function.h"
+#include "wheel.h"
 #include "line_sensor.h"
+#include "color_sensor.h"
 
 //configuration
 void setup_Switch(){
@@ -43,4 +45,55 @@ void LED_on(){
 void LED_off(){
 	GPIOD->PDOR |= (1<<5);
 }
+//maze logic
+color_type map_color(color_type start){
+	switch(start){
+		case RED:
+			return GREEN;
+			break;
+		case GREEN:
+			return BLUE;
+			break;
+		case BLUE:
+			return RED;
+			break;
+		case YELLOW:
+			return RED;
+			break;
+		default:
+			return UNKNOWN;
+	}
+}
+bool check_finish(){
+	return finish_color && get_color();
+}
+void keep_going(){
+	go_straight();
+	if (calibrate_left() > THRESHOLD){
+		stop();
+		turn_right45();
+	}
+	if (calibrate_right() > THRESHOLD){
+		stop();
+		turn_left45();
+	}
+}
+void get_out(){
+	go_straight();
+	delay_ms(timeGoStraight);
+	stop();
+	delay_ms(300);
+	turn_right();
+}
+void get_in(){
+	go_straight();
+	delay_ms(500);
+	stop();
+	delay_ms(300);
+	turn_right();
+	go_straight();
+	delay_ms(timeGoStraight);
+	stop();
+}
+
 

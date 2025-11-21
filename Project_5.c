@@ -14,34 +14,15 @@
 #include "wheel.h"
 #include "line_sensor.h"
 #include "color_sensor.h"
-//#include <TCS34725_I2C.h>
-/* TODO: insert other definitions and declarations here. */
 
+/* TODO: insert other definitions and declarations here. */
+color_type start_color;
+color_type finish_color;
+bool finish_reached = false;
 /*
  * @brief   Application entry point.
  */
-void dummy(){
-	color_type color = get_color();
-	switch (color){
-		case RED:
-			PRINTF("RED\n");
-			break;
-		case BLUE:
-			PRINTF("BLUE\n");
-			break;
-		case GREEN:
-			PRINTF("GREEN\n");
-			break;
-		case YELLOW:
-			PRINTF("YELLOW\n");
-			break;
-		case UNKNOWN:
-			PRINTF("UNKNOWN\n");
-			break;
-		default:
-			PRINTF("Error\n");
-	}
-}
+
 int main(void) {
     /* Init board hardware. */
     BOARD_InitBootPins();
@@ -56,19 +37,18 @@ int main(void) {
     setup_color_sensor();
     setup_line_sensor();
     setup_Switch();
-    PRINTF("START\n");
+    //PRINTF("START\n");
+    start_color = get_color();
+    finish_color = map_color(start_color);
     while(1){
-//    	go_straight();
-//    	if (calibrate_left() > THRESHOLD){
-//    		stop();
-//    		turn_right45();
-//    	}
-//    	if (calibrate_right() > THRESHOLD){
-//			stop();
-//			turn_left45();
-//		}
-    	color_sensor_read();
-    	dummy();
+    	if (SW2_press()){
+    		get_out();
+    		while(!finish_reached){
+    			keep_going();
+				finish_reached = check_finish();
+    		}
+    		get_in();
+    	}
     }
 
     return 0 ;
