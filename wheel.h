@@ -8,8 +8,10 @@
 #ifndef WHEEL_H_
 #define WHEEL_H_
 //wheel motor
-#define timeTurnLeft 410
-#define timeTurnRight 390
+#define timeGoStraight 1350
+#define timeTurnLeft45 250 //FIXME
+#define timeTurnRight45 250
+#define timeTurnRight 430
 #define leftSpeed TPM2_MOD
 #define rightSpeed leftSpeed*0.88
 #define TPM2_MOD 39999
@@ -18,13 +20,16 @@ void setup_wheel();
 void setup_TPM2();
 void setup_PortB(); //PTB0,1,2,3 - right motor, PWM
 void setup_PortC(); //PTC1,2 - left motor
+void setup_TPM0(); //for delay
 
 //wheel motor logic
 void go_straight();
-void turn_left();
 void turn_right();
-void turn_around();
+void turn_right45();
+void turn_left45();
 void stop();
 void setMotorSpeed(float left, float right);
 
+//delay
+void delay_ms(int ms);
 #endif /* WHEEL_H_ */

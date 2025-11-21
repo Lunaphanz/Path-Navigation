@@ -11,8 +11,8 @@
 uint8_t raw_color[8];
 color_type actual_color = UNKNOWN;
 void setup_color_sensor(){
-	color_sensor_init();
 	setup_SCL_SDA();
+	color_sensor_init();
 }
 void setup_SCL_SDA(){ //PTC9 - SDA, PTC8 - SCL
 	SIM->SCGC5 |= SIM_SCGC5_PORTC(1); //enable clock gating Port C bit 11
@@ -66,6 +66,6 @@ color_type get_color(){
 void print_raw_color()
 {
     for (int i = 0; i < 8; i++) {
-        printf("raw_color[%d] = 0x%02X\n", i, raw_color[i]);
+        PRINTF("raw_color[%d] = 0x%02X\n", i, raw_color[i]);
     }
 }

@@ -18,12 +18,8 @@
 //Configuration
 void setup_PIT();
 void PIT_IRQHandler();
-void setup_TPM0(); //for delay
 
-//colorsensor logic
-void setup_color_sensor();
-void setup_PTC9(); //SDA
-void setup_PTC8(); //SCL
+
 
 //led
 void setup_LED();
@@ -34,8 +30,5 @@ void LED_off();
 void setup_Switch();
 bool SW1_press();
 bool SW2_press();
-
-//delay
-void delay_ms(int ms);
 
 #endif /* FUNCTION_H_ */

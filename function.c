@@ -17,12 +17,6 @@
 #include "line_sensor.h"
 
 //configuration
-void setup_TPM0(){
-	SIM->SCGC6 |= SIM_SCGC6_TPM0(1);
-	SIM->SOPT2 |= SIM_SOPT2_TPMSRC(2); //OSCERCLK bit 24-25
-	TPM0->SC |= TPM_SC_PS(7); // Set Prescaler 128
-	TPM0->CONF |= TPM_CONF_CSOO_MASK; // Stop on Overflow
-}
 void setup_Switch(){
 	SIM->SCGC5 |= SIM_SCGC5_PORTC(1); //enable clock gating Port C bit 11
 	//PTC3 (SW1) to GPIO, pull enable, pull select, input
@@ -48,19 +42,5 @@ void LED_on(){
 }
 void LED_off(){
 	GPIOD->PDOR |= (1<<5);
-}
-void delay_ms(int ms){
-	while (ms >0){
-		unsigned short chunk = (ms > 1000) ? 1000 : ms;
-		TPM0->CNT = 0;
-		TPM0->SC |= TPM_SC_TOF_MASK; //Reset Timer Overflow Flag
-		TPM0->MOD = ms * 61 + ms/2;
-
-		TPM0->SC |= TPM_SC_CMOD(1); // TPM counter increments on every TPM counter clock
-		while(!(TPM0->SC & TPM_SC_TOF_MASK)){} // Wait until Overflow Flag
-		TPM0->SC |= TPM_SC_TOF_MASK;           // clear TOF
-		TPM0->SC &= ~TPM_SC_CMOD_MASK;         // stop
-		ms -= chunk;
-	}
 }
 

@@ -54,13 +54,22 @@ int main(void) {
 
     setup_wheel();
     setup_color_sensor();
-    //PRINTF("complete color sensor\n");
     setup_line_sensor();
-
+    setup_Switch();
     PRINTF("START\n");
     while(1){
+//    	go_straight();
+//    	if (calibrate_left() > THRESHOLD){
+//    		stop();
+//    		turn_right45();
+//    	}
+//    	if (calibrate_right() > THRESHOLD){
+//			stop();
+//			turn_left45();
+//		}
     	color_sensor_read();
     	dummy();
     }
+
     return 0 ;
 }

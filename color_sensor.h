@@ -39,6 +39,5 @@ void color_sensor_read();
 //readblock
 color_type get_color();
 //return read color
-void color_sensor_read();
 void print_raw_color();
 #endif /* COLOR_SENSOR_H_ */
