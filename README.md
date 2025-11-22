@@ -19,7 +19,7 @@ This repository contains all embedded drivers and high-level logic used to contr
 Project_5/
 ├── Project_5.c          → Main program (setup, start tile, finish logic, navigation loop 
 │
-├── color_sensor.c       → High-level color classification + normalization
+├── color_sensor.c       → High-level color classification + normalization + configure color sensor peripherals using I_2C
 │
 ├── TCS34725_I2C.c       → Low-level TCS34725 I2C register driver // use I2C_outline.txt for this
 │
