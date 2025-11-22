@@ -17,26 +17,15 @@ This repository contains all embedded drivers and high-level logic used to contr
 
 ```
 Project_5/
-├── Project_5.c          → Main program (setup, start tile, finish logic, navigation loop)
+├── Project_5.c          → Main program (setup, start tile, finish logic, navigation loop 
 │
 ├── color_sensor.c       → High-level color classification + normalization
-├── color_sensor.h
 │
-├── TCS34725_I2C.c       → Low-level TCS34725 I2C register driver
-├── TCS34725_I2C.h
+├── TCS34725_I2C.c       → Low-level TCS34725 I2C register driver // use I2C_outline.txt for this
 │
-├── line_sensor.c        → Line sensor ADC readings + threshold logic
-├── line_sensor.h
+├── line_sensor.c        → Line sensor ADC readings // follow ADC_lightsensor.c
 │
 ├── wheel.c              → Motor PWM control (forward/turn/stop)
-├── wheel.h
-│
-├── function.c           → Navigation helpers (keep_going, check_finish, get_out, get_in)
-├── function.h
-│
-├── peripherals.c/.h     → Auto-generated MCUXpresso peripheral configuration
-├── pin_mux.c/.h         → KL46Z pin routing (I2C, ADC, TPM, GPIO)
-├── board.c/.h           → Board initialization utilities
 │
 ├── mtb.c                → Micro trace buffer
 ├── semihost_hardfault.c → Debug crash handler
