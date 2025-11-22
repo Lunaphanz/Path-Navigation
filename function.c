@@ -69,11 +69,11 @@ bool check_finish(){
 }
 void keep_going(){
 	go_straight();
-	if (calibrate_left() > THRESHOLD){
+	if (calibrate_left() > THRESHOLD_left){
 		stop();
 		turn_right45();
 	}
-	if (calibrate_right() > THRESHOLD){
+	if (calibrate_right() > THRESHOLD_right){
 		stop();
 		turn_left45();
 	}

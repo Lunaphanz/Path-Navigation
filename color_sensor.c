@@ -57,9 +57,7 @@ color_type get_color(){
 			return UNKNOWN;
 		}
 	} else {  //Green, Yellow, White
-		if (green > red && green > blue){
-			return GREEN;
-		} else if (red > blue && red > green){
+		if (red > blue && red > green){
 			return YELLOW;
 		} else {
 			return UNKNOWN;

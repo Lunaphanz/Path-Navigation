@@ -42,13 +42,20 @@ int main(void) {
     finish_color = map_color(start_color);
     while(1){
     	if (SW2_press()){
+    		delay_ms(500);
     		get_out();
     		while(!finish_reached){
+    			color_sensor_read();
     			keep_going();
 				finish_reached = check_finish();
     		}
     		get_in();
     	}
+//    	color_sensor_read();
+//    	PRINTF("left: %d\n", calibrate_left());
+//    	PRINTF("right: %d\n", calibrate_right());
+//    	PRINTF("color: %d\n", get_color());
+//    	PRINTF("------------\n");
     }
 
     return 0 ;

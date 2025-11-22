@@ -15,7 +15,8 @@
 #ifndef LINE_SENSOR_H_
 #define LINE_SENSOR_H_
 //TODO: Macro define
-#define THRESHOLD 240 //black ~150 -> >140 !black
+#define THRESHOLD_left 240 //black ~150 -> >140 !black
+#define THRESHOLD_right 230
 //TODO: variable
 extern bool left_line;
 extern bool right_line;
