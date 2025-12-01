@@ -33,7 +33,7 @@ void color_sensor_init(){
 	I2C_WriteByte(0x8D, 0x00); //clear WLONG to be 0
 	I2C_WriteByte(0x83, 0xFF); //set WTIME wait time to 1
 	I2C_WriteByte(0x81, 0xFF); //set ATIME Integ_cycles to 1
-	color_sensor_read();
+	//color_sensor_read();
 }
 void color_sensor_read(){
 	Read_Block(0xB4, raw_color, 8); //read from 0x14 - 0x1B 0x80 | 0x14
@@ -63,6 +63,12 @@ color_type get_color(){
 			return UNKNOWN;
 		}
 	}
+//    if (clear == 0) return UNKNOWN;
+//    float r = (float)red/clear;
+//    float g = (float)green/clear;
+//    float b = (float)blue/clear;
+//    if (clear < 20) return UNKNOWN; //Black
+    
 }
 void print_raw_color()
 {

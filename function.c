@@ -65,7 +65,7 @@ color_type map_color(color_type start){
 	}
 }
 bool check_finish(){
-	return finish_color && get_color();
+	return finish_color == get_color();
 }
 void keep_going(){
 	go_straight();

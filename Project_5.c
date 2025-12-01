@@ -18,11 +18,16 @@
 /* TODO: insert other definitions and declarations here. */
 color_type start_color;
 color_type finish_color;
-bool finish_reached = false;
+bool finish_reached;
 /*
  * @brief   Application entry point.
  */
-
+void follow(){
+	color_sensor_read();
+	PRINTF("color: %d\n", get_color());
+	print_raw_color();
+	PRINTF("------------\n");
+}
 int main(void) {
     /* Init board hardware. */
     BOARD_InitBootPins();
@@ -38,8 +43,12 @@ int main(void) {
     setup_line_sensor();
     setup_Switch();
     //PRINTF("START\n");
+    color_sensor_read();
     start_color = get_color();
+    PRINTF("start: %d\n", start_color);
     finish_color = map_color(start_color);
+    PRINTF("finish: %d\n", finish_color);
+    finish_reached = false;
     while(1){
     	if (SW2_press()){
     		delay_ms(500);
@@ -47,15 +56,14 @@ int main(void) {
     		while(!finish_reached){
     			color_sensor_read();
     			keep_going();
+    			follow();
+				finish_reached = check_finish();
+				delay_ms(100);
 				finish_reached = check_finish();
     		}
     		get_in();
     	}
-//    	color_sensor_read();
-//    	PRINTF("left: %d\n", calibrate_left());
-//    	PRINTF("right: %d\n", calibrate_right());
-//    	PRINTF("color: %d\n", get_color());
-//    	PRINTF("------------\n");
+
     }
 
     return 0 ;
